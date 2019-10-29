@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_list.view.*
 
 class FootballClubAdapter(private val context: Context, private val items: List<Item>, private val listener: (Item) -> Unit) : RecyclerView.Adapter<FootballClubAdapter.FootballClubViewHolder>() {
 
@@ -23,14 +25,13 @@ class FootballClubAdapter(private val context: Context, private val items: List<
         holder.bindItem(items[position], listener)
     }
 
-    class FootballClubViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val name = view.findViewById<TextView>(R.id.tv_clubName)
-        private val image = view.findViewById<ImageView>(R.id.img_club)
+    class FootballClubViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+        LayoutContainer {
 
         fun bindItem(items: Item, listener: (Item) -> Unit) {
-            name.text = items.name
+            itemView.tv_clubName.text = items.name
             items.image?.let {
-                Picasso.get().load(it).fit().into(image)
+                Picasso.get().load(it).fit().into(itemView.img_club)
             }
             itemView.setOnClickListener {
                 listener(items)
