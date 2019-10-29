@@ -2,6 +2,7 @@ package com.andrew.footballclublist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -22,7 +23,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rv_club_list)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = FootballClubAdapter(this, items)
+        recyclerView.adapter = FootballClubAdapter(this, items) {
+            val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
+            toast.show()
+        }
     }
 
     private fun initData() {
